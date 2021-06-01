@@ -1,14 +1,12 @@
-"""Summary
-Implements a visual solution to a sudoku puzzle parsed from a file
-Attributes:
-    blockWidth (int): The width of each block in the table (used for scaling the graphics)
-    offset (int): The amount of offset from left and right side of screen as well as between each 3x3 square
-    win (TYPE): the graphics window
-"""
 from fileReading import *
 from solvingSudoku import *
 from graphics import *
 
+"""
+  blockWidth (int): lebar dari setiap block
+    offset (int): offset kiri kanan layar dari block
+    win (TYPE): window graphic 
+"""
 blockWidth = 50
 offset = 10
 win = GraphWin('Sudoku', offset * 4 + blockWidth * 9 + 1, 200 + blockWidth * 9 + 1)
@@ -77,17 +75,17 @@ def solveWithGraphics(puzzle):
       puzzle[row][col] = val
       drawBlock(row, col, val, "light gray")
 
-      if solveWithGraphics(puzzle): # Check to see if it worked
+      if solveWithGraphics(puzzle): # untuk pengecekan apakah berhasil
         return True
 
-      puzzle[row][col] = 0 # If it didn't then reset and try again
-      drawBlock(row, col, 0, color_rgb(247, 169, 151))  # Draw the block red if failed
+      puzzle[row][col] = 0 # Jika tidak reset, coba lagi
+      drawBlock(row, col, 0, color_rgb(247, 169, 151))  #Block jadi merah apabil agagal
       time.sleep(0.25) # Delay
   return False
 
 def clear(win):
     """Summary
-    Clears the window of all items (undraws them)
+    clear window
     Args:
         win (GraphWin): the window to clear
     """
@@ -97,47 +95,40 @@ def clear(win):
 
 def rectangleContains(rect: Rectangle, p: Point):
   """Summary
-  If the point given is inside of the rectange
-  Args:
-      rect (Rectangle): a rectangle
-      p (Point): a point
-
-  Returns:
-      boolean: if the point is inside the given retangle
+  Memberikan poin ke dalam kotak
   """
   x = p.getX()
   y = p.getY()
   return x >= rect.getP1().getX() and x <= rect.getP2().getX() and y >= rect.getP1().getY() and y <= rect.getP2().getY()
 
 def main():
-  # Loop infinetley
   while(True):
-    # Clear every time we reset
+    # bersihkan layar setiap kali reset
     clear(win)
-    ##### Drawing the Input File Screen #######
+    ##### Screen Input nama file #######
     name = Text(Point(win.getWidth()/2, 40), "Welcome to the Sudoku Solver \n")
     instructions = Text(Point(win.getWidth()/2, win.getHeight()/2), "Then click anywhere on the screen")
     entry1 = Entry(Point(win.getWidth()/2, 200),10)
-    filenamePrompt = Text(Point(win.getWidth()/2, 150),'Please type in a puzzle name and extension to begin') # label for the Entry
+    filenamePrompt = Text(Point(win.getWidth()/2, 150),'Ketik nama file dan ekstensinya untuk mulai') #label untuk entry
     beginning = [name, instructions, entry1, filenamePrompt]
     for item in beginning:
       item.draw(win)
-    win.getMouse()  # To know the user is finished with the text.
+    win.getMouse()  # saat user telah selesai mmenuliskan tulisan
     filename = entry1.getText()
     clear(win)
 
-    ##### Getting the puzzle from the file and setting variables ######
+    ##### Ambil puzzle dari file ######
     shouldReset = False
     blankPuzzle = getPuzzleFromFile("puzzles/" + filename)
     puzzle = getPuzzleFromFile("puzzles/" + filename)
 
-    ##### Drawing the initial screen #######
+    ##### Screen awal #######
     DrawPuzzle(blankPuzzle, "light green")
     header = Text(Point(win.getWidth() / 2, 25), "Puzzle: " + filename)
     header.setSize(24)
     header.draw(win)
 
-    ##### Drawing the buttons at the bottom of the screen #####
+    ##### Tombol di bawah screen #####
     buttonWidth = 100
     buttonHeight = 40
     solveButton = Rectangle(Point((win.getWidth() / 6) - (buttonWidth / 2), win.getHeight() - 65 - buttonHeight / 2),
@@ -165,26 +156,26 @@ def main():
     newFile.draw(win)
     newFileText.draw(win)
 
-    ##### Loop until the program should be reset #####
+    ##### Ulangi terus sampai menekan reset #####
     while not shouldReset:
-      # Wait for user input
+      # Menunggu user input
       userInput = win.getMouse()
       print(userInput)
-      if rectangleContains(solveButton, userInput): ## If the user clicks on solve
-        solve(puzzle) # Solve the puzzle and then draw the puzzle on the screen in darker green
+      if rectangleContains(solveButton, userInput): ## Jika user klik tombol solve, maka puzzle akan tersolve langsung
+        solve(puzzle)
         DrawPuzzle(puzzle, color_rgb(76, 184, 46))
-      elif rectangleContains(steps, userInput): ## if the user clicks on steps
-        solveWithGraphics(puzzle) #Solve but showing steps
-        if solve(puzzle): # If the puzzle is solveable then print it again showing that the algorithm is done
+      elif rectangleContains(steps, userInput): ## Jika user klik tombol steps, maka program akan satu per satu menyelesaikan puzzle
+        solveWithGraphics(puzzle) 
+        if solve(puzzle): # Jika bisa diselesaikan, maka tampilkan selesai
           DrawPuzzle(puzzle, color_rgb(76, 184, 46))
         else:
-          DrawPuzzle(puzzle, color_rgb(247, 169, 151)) # If the algorithm is not able to find a solution then draw it in red
-      elif rectangleContains(reset, userInput): # If the user clicks reset
-        DrawPuzzle(blankPuzzle, "light green")  # Then draw the puzzle again in light green
-        puzzle = getPuzzleFromFile("puzzles/" + filename)   # Also reset puzzle to an unsolved version
-      elif rectangleContains(newFile, userInput): # If the user wants a new file
-        clear(win) # Clear the window
-        shouldReset = True  # Exit loop
+          DrawPuzzle(puzzle, color_rgb(247, 169, 151)) # Jika tidak menemukan solusi, akan muncul warna merah
+      elif rectangleContains(reset, userInput): # saat user menekan reset
+        DrawPuzzle(blankPuzzle, "light green")  # ulang menampilkan puzzle
+        puzzle = getPuzzleFromFile("puzzles/" + filename)   # reset ke versi unsolved
+      elif rectangleContains(newFile, userInput): # saat user ingin new file
+        clear(win) # clear window
+        shouldReset = True  # keluar loop
       else:
         buttonPressed = False
   win.close()

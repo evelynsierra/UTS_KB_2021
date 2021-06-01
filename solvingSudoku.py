@@ -1,59 +1,56 @@
-"""Summary
-Contains a basic algorithm for solving sudokus. Implements recursive backtracking.
+"""
+Algoritma Backtracking menyelesaikan sudoku
 """
 from fileReading import *
 import numpy as np
 
-
+"""
+Cek apakah kotak boleh diisi
+"""
 def canPlace(puzzle, y: int, x: int, value: int):
-    """Summary
-    If the given puzzle can accept the value at the postion specified
-
-    Args:
-        puzzle (matrix): The puzzle we are solving
-        y (int): the row of the slot in question
-        x (int): the column of the slot in question
-        value (int): The value we are attempting to insert
-
-    Returns:
-        TYPE: Whether or not the item can be placed in that spot
     """
-    # print(puzzle[y][x])
+        y (int): baris
+        x (int): kolom
+        value (int): angka yang akan dimasukkan
+    """
+    # Jika puzzle tidak kosong, return false
     if puzzle[y][x] != 0:
-        #print("Space is not 0")
         return False
-    # Check the row
+    
+    # cek baris
     row = puzzle[y]
-    # print(row)
+    
+    # print(baris)
     if value in puzzle[y]:
         return False
-    # Check the column
+    
+    # cek kolom
     col = [line[x] for line in puzzle]
-    # print(col)
+    
+    # print(kolom)
     if value in col:
         return False
+    
     boxY = y // 3
-    #print(boxY)
+    
+    #print(box Y)
     boxX = x // 3
-    #print(boxX)
+    
+    #print(box X)
     for i in range(boxY * 3, boxY * 3 + 3):
-        # print(puzzle[i][boxX * 3:boxX * 3 + 3])
+        
+        # print
         if value in puzzle[i][boxX * 3:boxX * 3 + 3]:
             return False
     return True
 
 
 def solve(puzzle):
-    """Summary
-
-  Args:
-      puzzle (matrix): The puzzle to solve
-
-  Returns:
-      bool: if the puzzle was solvable with the current state
+    """
+    Solve puzzle dan return bool
   """
     firstEmpty = findNextEmpty(puzzle)
-    if not firstEmpty:  # If there are no empty spots left
+    if not firstEmpty:  # Jika ada yang kosong
         return True
     row, col = firstEmpty
     for val in range(1, 10):
@@ -69,13 +66,8 @@ def solve(puzzle):
 
 
 def findNextEmpty(puzzle):
-    """Summary
-
-  Args:
-      puzzle (matrix): The puzzle to parse
-
-  Returns:
-      TYPE: Returns the next empty item in the matrix as a tuple
+    """
+    Cari kotak yang kosong selanjutnya
   """
     for row in range(9):
         for col in range(9):
