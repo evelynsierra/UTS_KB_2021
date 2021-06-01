@@ -1,8 +1,6 @@
 def getPuzzleFromFile(fileName: str):
-  """Summary
-  Creates a 9x9 matrix from the given file
-  Args:
-      fileName (str): the filename for the file given
+  """
+  Membuat matriks 9x9 dari file yang telah dibuat
   """
   f = open(fileName, "r")
   puzzle = []
@@ -14,10 +12,8 @@ def getPuzzleFromFile(fileName: str):
   return puzzle
 
 def printSudoku(puzzle):
-  """Summary
-  Prints a 9x9 grid of numbers into a sudoku board, better than np.matrix
-  Args:
-      puzzle (matrix): The board to be printed
+  """
+  Print ke sudokugraphic
   """
   for i in range(9):
     for j in range(9):

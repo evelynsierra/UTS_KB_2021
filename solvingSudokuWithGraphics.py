@@ -14,13 +14,11 @@ win = GraphWin('Sudoku', offset * 4 + blockWidth * 9 + 1, 200 + blockWidth * 9 +
 
 def drawBlock(row: int, col: int, val: int, color):
   global win
-  """Summary
-  Draws the given block the correct color. Also adds in the value for that block if the value is non-zero
-  Args:
-      row (int): row of block to draw
-      col (int): col of block to draw
-      val (int): value to place in the block - 0 if empty
-      color (string): string to represent color for the block
+  """
+      row (int): baris
+      col (int): kolom
+      val (int): nilai untuk dimasukkan saat kotak kosong
+      color (string): untuk warna
   """
   verticalOffsets = row // 3 + 1
   verticalO = verticalOffsets * offset + 50
@@ -42,11 +40,8 @@ def drawBlock(row: int, col: int, val: int, color):
 
 
 def DrawPuzzle(puzzle: list, color):
-  """Summary
-
-  Args:
-      puzzle (list): Description
-      color (TYPE): Description
+  """
+  Untuk menampilkan puzzle
   """
   for row in range(9):
     for col in range(9):
@@ -57,13 +52,8 @@ def DrawPuzzle(puzzle: list, color):
 
 def solveWithGraphics(puzzle):
 
-  """Summary
-  Solves the puzzle using recursive backtracking. Also displays its current progress to win.
-  Args:
-      puzzle (matrix): The puzzle to solve
-
-  Returns:
-      boolean: If the puzzle could be solved given the current status
+  """
+  Menggunakan algoritma backtracking untuk menyelesaikan puzzle
   """
   time.sleep(0.25)
   firstEmpty = findNextEmpty(puzzle) # Find the next empty spot
@@ -84,17 +74,15 @@ def solveWithGraphics(puzzle):
   return False
 
 def clear(win):
-    """Summary
-    clear window
-    Args:
-        win (GraphWin): the window to clear
+    """
+    Clear window
     """
     for item in win.items[:]:
         item.undraw()
     win.update()
 
 def rectangleContains(rect: Rectangle, p: Point):
-  """Summary
+  """
   Memberikan poin ke dalam kotak
   """
   x = p.getX()
