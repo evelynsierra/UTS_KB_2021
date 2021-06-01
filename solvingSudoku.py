@@ -50,7 +50,7 @@ def solve(puzzle):
     Solve puzzle dan return bool
   """
     firstEmpty = findNextEmpty(puzzle)
-    if not firstEmpty:  # Jika ada yang kosong
+    if not firstEmpty:  # Jika tidak ada yang kosong
         return True
     row, col = firstEmpty
     for val in range(1, 10):
