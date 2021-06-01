@@ -95,9 +95,9 @@ def main():
     clear(win)
     ##### Screen Input nama file #######
     name = Text(Point(win.getWidth()/2, 40), "Welcome to the Sudoku Solver \n")
-    instructions = Text(Point(win.getWidth()/2, win.getHeight()/2), "Then click anywhere on the screen")
+    instructions = Text(Point(win.getWidth()/2, win.getHeight()/2), "Kemudian klik di mana pun di dalam window ini")
     entry1 = Entry(Point(win.getWidth()/2, 200),10)
-    filenamePrompt = Text(Point(win.getWidth()/2, 150),'Ketik nama file dan ekstensinya untuk mulai') #label untuk entry
+    filenamePrompt = Text(Point(win.getWidth()/2, 150),'Ketik nama file input dan ekstensinya untuk mulai') #label untuk entry
     beginning = [name, instructions, entry1, filenamePrompt]
     for item in beginning:
       item.draw(win)
