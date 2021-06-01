@@ -207,13 +207,17 @@ Kemudian jika kita menekan tombol solve, maka solusi akan langsung muncul secara
 
 ## Snapshots 
 ![Landing](./Foto/landing.PNG)
+
 Landing Page
 
 ![Awal](./Foto/awal.PNG)
+
 Awal
 
 ![Solve](./Foto/solve.PNG)
+
 Setelah diklik tombol solve
 
 ![Step](./Foto/step.PNG)
+
 Setelah berjalan dengan step (merah = Backtrack)
